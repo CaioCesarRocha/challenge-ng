@@ -22,12 +22,8 @@ export class UserPrismaRepository implements UserRepositoryInterface{
         return userNormalized;   
     }
 
-    async findByUsername(username: string): Promise<UserOutput> {
+    async findByUsername(username: string): Promise<UserOutput|void> {
         const user = await prisma.user.findUnique({where: {username: username}})     
-        if(user) return User.create(user);
-        else {
-            const user = {id: '', username: '', password: '', accountId: ''}
-            return user;
-        }
+        return user;
     }
 }

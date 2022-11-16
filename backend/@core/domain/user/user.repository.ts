@@ -10,5 +10,5 @@ export type UserOutput={
 
 export interface UserRepositoryInterface{
     insert(user: User, account: Account): Promise<UserOutput>;
-    findByUsername(username: string): Promise<UserOutput>;
+    findByUsername(username: string): Promise<UserOutput|void>;
 }

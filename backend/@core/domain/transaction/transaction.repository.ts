@@ -1,4 +1,11 @@
-import { CreateTransactionInput } from "../../application/transaction/create-transaction.use-case";
+
+export type TransactionInput={
+    debitedAccountId: string;
+    creditedAccountId: string;
+    debitedUserBalance: number;
+    creditedUserBalance: number;
+    value: number;
+}
 
 export type Transaction={
     id: string;
@@ -9,7 +16,7 @@ export type Transaction={
 }
 
 export interface TransactionRepositoryInterface{
-    insert(transaction: CreateTransactionInput): Promise<Transaction>;
-    //findByIdUser(id: string): Promise<Transaction[]>;
+    insert(transaction: TransactionInput): Promise<Transaction>;
+    findByIdUser(id: string): Promise<Transaction[]>;
     //filter(id: string, filter: string): Promise<Transaction[]>
 }

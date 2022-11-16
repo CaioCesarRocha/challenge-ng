@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-export async function chekingInputCreateUser(request: Request, response: Response, next: NextFunction){
+export async function chekingCreateUser(request: Request, response: Response, next: NextFunction){
     const {username, password} = request.body;
     const usernameSizeMinimum = 3;
     const passwordSizeMinimum = 8;

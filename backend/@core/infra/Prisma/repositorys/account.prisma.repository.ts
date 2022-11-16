@@ -9,10 +9,6 @@ export class AccountPrismaRepository implements AccountRepositoryInterface{
 
     async findAccountById(id: string): Promise<AccountOutput> {
         const account = await prisma.account.findUnique({where: {id: id}})
-        if(account) return Account.create(account)
-        else {
-            const account = {id: '', balance: 0}
-            return account;
-        }
+        return account;
     }
 }

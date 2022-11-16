@@ -1,26 +1,33 @@
 import { Router, Request, Response, NextFunction} from "express";
-import { chekingInputCreateUser } from "../middlewares/chekingCreateUserInput";
 import { CreateUserUseCase } from "../../@core/application/user/create-user.use-case";
 import { FindUserByUsernameUseCase } from "../../@core/application/user/find-user-by-username.use-case";
-import { CheckingPassword, CheckingUsername, CheckingCharacters } from "../../@core/domain/user/checkingInputCreateUser";
+import { AuthenticateUserUseCase } from "../../@core/application/user/authenticate-user.use-case";
 import { UserPrismaRepository } from "../../@core/infra/Prisma/repositorys/user.prisma.repository";
-
 
 const userRoutes = Router();
 const userRepo = new UserPrismaRepository();
 
 userRoutes.post('/user', 
-    chekingInputCreateUser, 
     async(req: Request, res: Response, next: NextFunction)=>{ 
+        const {username, password} = req.body;  
         const findUserByUsername = new FindUserByUsernameUseCase(userRepo)
-        const userExist = await findUserByUsername.execute(req.body.username)
-        if(userExist.username === req.body.username) next(new Error('User already exist'));
+        const userExist = await findUserByUsername.execute(username)
+        if(userExist?.username === username) next(new Error('User already exist'));
         else{
+            const input = {username, password};
             const createUseCase = new CreateUserUseCase(userRepo);
-            const output = await createUseCase.execute(req.body);
+            const output = await createUseCase.execute(input);
             res.status(201).json(output) 
         }  
     }
 )
+
+userRoutes.post('/authenticate', async(req: Request, res: Response) =>{
+    const {username, password} = req.body;
+    const input = {username, password};
+    const authenticateDeliverymanUseCase = new AuthenticateUserUseCase(userRepo);
+    const resultAuthentication = await authenticateDeliverymanUseCase.execute(input)
+    return res.json(resultAuthentication)
+})
 
 export { userRoutes };

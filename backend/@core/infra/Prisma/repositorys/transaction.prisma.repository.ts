@@ -1,4 +1,4 @@
-import { CreateTransactionInput } from "../../../application/transaction/create-transaction.use-case";
+import { TransactionInput } from "../../../domain/transaction/transaction.repository";
 import { TransactionRepositoryInterface } from "../../../domain/transaction/transaction.repository";
 import { Transaction } from "../../../domain/transaction/transaction.repository";
 import { prisma } from "../../Prisma/prismaClient";
@@ -6,7 +6,7 @@ import { prisma } from "../../Prisma/prismaClient";
 export class TransactionPrismaRepository implements TransactionRepositoryInterface{
     constructor(){}
 
-    async insert(transaction: CreateTransactionInput): Promise<Transaction> {
+    async insert(transaction: TransactionInput): Promise<Transaction> {
         const [newTransaction, debitedAccount, creditedAccount] = await prisma.$transaction([
             prisma.transaction.create({ data: {
                 debitedAccountId: transaction.debitedAccountId,
@@ -25,11 +25,19 @@ export class TransactionPrismaRepository implements TransactionRepositoryInterfa
         return newTransaction;
     }
 
-    /*async findByIdUser(id: string): Promise<Transaction[]> {
-        
+    async findByIdUser(id: string): Promise<Transaction[]> {
+        const transactions = await prisma.transaction.findMany({
+            where: {
+                OR: [
+                  { debitedAccountId: id},
+                  { creditedAccountId: id}
+                ],
+            }
+        })
+        return transactions;
     }
 
-    async filter(id: string, filter: string): Promise<Transaction[]> {
+    /*async filter(id: string, filter: string): Promise<Transaction[]> {
         
     }*/
 }

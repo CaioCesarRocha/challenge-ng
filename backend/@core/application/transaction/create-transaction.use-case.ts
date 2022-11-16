@@ -1,21 +1,26 @@
 import { TransactionRepositoryInterface } from "@core/domain/transaction/transaction.repository";
-import { FindAccountByIdUseCase } from "../account/find-account-by-id.use-case";
-import { AccountPrismaRepository } from "@core/infra/Prisma/repositorys/account.prisma.repository";
+import { checkingTransactions } from "../../domain/transaction/checkingTransactions";
 
-
-export class CreateTransaction{
+export class CreateTransactionUseCase{
     constructor(private transactionRepo: TransactionRepositoryInterface){}
     
-    async execute(input: CreateTransactionInput): Promise<CreateTransactionOutput>{
-       
+    async execute(input: CreateTransaction){
+       const newBalances = await checkingTransactions(input);
+       const newTransaction = {
+            debitedAccountId: input.debitedAccountId,
+            creditedAccountId: newBalances.creditedAccountId,
+            debitedUserBalance: newBalances.newBalanceDebited,
+            creditedUserBalance: newBalances.newBalanceCredited,
+            value: input.value
+       }
+       const transaction = await this.transactionRepo.insert(newTransaction)
+       return transaction;
     }
 }
 
-export type CreateTransactionInput={
+export type CreateTransaction={
     debitedAccountId: string;
-    creditedAccountId: string;
-    debitedUserBalance: number;
-    creditedUserBalance: number;
+    usernameCredited: string;
     value: number;
 }
 
