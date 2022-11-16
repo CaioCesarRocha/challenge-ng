@@ -3,6 +3,7 @@ import { ensureAuthenticateUser } from "../middlewares/ensureAuthenticateUser";
 import { CreateTransactionUseCase} from "../../@core/application/transaction/create-transaction.use-case";
 import { FindTransactionByUserIdUseCase } from "../../@core/application/transaction/find-transaction-by-user-id.use-case";
 import { TransactionPrismaRepository } from "../../@core/infra/Prisma/repositorys/transaction.prisma.repository";
+import { FilterTransactionUseCase } from "../../@core/application/transaction/filter-transaction.user-case";
 
 const transactionRoutes = Router();
 const transactionRepo = new TransactionPrismaRepository();
@@ -27,5 +28,17 @@ transactionRoutes.get('/transaction',
         res.status(201).json(output) 
     }
 );
+
+transactionRoutes.get('/transaction/filter', 
+    ensureAuthenticateUser, 
+    async(req: Request, res: Response, next: NextFunction)=>{  
+        const { accountId, filter} = req.body;
+        const input = {accountId, filter}
+        const filterTransaction = new FilterTransactionUseCase(transactionRepo)
+        const output = await filterTransaction.execute(input);
+        res.status(201).json(output) 
+    }
+);
+
 
 export { transactionRoutes };

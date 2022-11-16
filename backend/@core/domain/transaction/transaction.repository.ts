@@ -15,8 +15,9 @@ export type Transaction={
     createdAt: Date;
 }
 
+
 export interface TransactionRepositoryInterface{
     insert(transaction: TransactionInput): Promise<Transaction>;
     findByIdUser(id: string): Promise<Transaction[]>;
-    //filter(id: string, filter: string): Promise<Transaction[]>
+    filter(id: string, filter: 'cashIn' | 'cashOut' | Date[]): Promise<Transaction[]>
 }
