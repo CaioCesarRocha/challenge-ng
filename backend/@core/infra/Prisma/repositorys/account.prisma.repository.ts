@@ -1,0 +1,18 @@
+import { AccountRepositoryInterface } from "@core/domain/account/account.repository";
+import { prisma } from "../prismaClient";
+import { AccountOutput } from "@core/domain/account/account.repository";
+import { Account } from "../../../domain/account/account.entity";
+
+
+export class AccountPrismaRepository implements AccountRepositoryInterface{ 
+    constructor(){}
+
+    async findAccountById(id: string): Promise<AccountOutput> {
+        const account = await prisma.account.findUnique({where: {id: id}})
+        if(account) return Account.create(account)
+        else {
+            const account = {id: '', balance: 0}
+            return account;
+        }
+    }
+}

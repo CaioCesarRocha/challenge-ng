@@ -3,6 +3,7 @@ import crypto from 'crypto';
 export type UserProps={
     username: string;
     password: string;
+    accountId?: string;
 }
 
 export class User {
@@ -12,8 +13,9 @@ export class User {
     private constructor(props: UserProps, id?: string){
         this.id = id || crypto.randomUUID();
 
-        this.props ={
-            ...props
+        this.props = {
+            ...props,
+            accountId: props.accountId
         }
     }
 
@@ -27,6 +29,10 @@ export class User {
 
     updatePassword(password: string){
         this.props.password = password;
+    }
+
+    updateAccountId(accountId: string){
+        this.props.accountId = accountId;
     }
 
     private set username(value: string){
@@ -43,6 +49,14 @@ export class User {
 
     get password(){
         return this.props.password;
+    }
+
+    private set accountId(value: string){
+        this.props.accountId = value;
+    }
+
+    get accountId(){
+        return this.props.accountId;
     }
 
     toJSON(){

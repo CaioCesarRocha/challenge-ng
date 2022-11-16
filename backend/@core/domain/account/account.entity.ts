@@ -9,16 +9,16 @@ export class Account{
     public props: Required<AccountProps>;
     public readonly initialBalance = 100;
 
-    private constructor(props: AccountProps, id?: string){
+    private constructor(props?: AccountProps, id?: string){
         this.id = id || crypto.randomUUID();
         
         this.props ={
             ...props,
-            balance: props.balance || this.initialBalance
+            balance: props?.balance || this.initialBalance
         }
     }
 
-    static create(props: AccountProps, id?:string){
+    static create(props?: AccountProps, id?:string){
         return new Account(props, id)
     }
 

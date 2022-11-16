@@ -14,8 +14,8 @@ model User {
   id        String  @id @default(uuid())
   username  String  @unique
   password  String
-  accountId String  @unique
-  account   Account @relation(fields: [accountId], references: [id])
+  accountId String?   @unique
+  account   Account? @relation(fields: [accountId], references: [id]) 
 
   @@map("user")
 }
@@ -23,7 +23,7 @@ model User {
 model Account {
   id       String        @id @default(uuid())
   balance  Float
-  User     User?
+  User     User? 
   Debited  Transaction[] @relation("Debited")
   Credited Transaction[] @relation("Credited")
 
