@@ -22,6 +22,13 @@ userRoutes.post('/user',
     }
 )
 
+userRoutes.get('/userByUsername/:username', async(req: Request, res: Response) =>{
+    const {username} = req.params;
+    const FindUserByUsername = new FindUserByUsernameUseCase(userRepo);
+    const user = await FindUserByUsername.execute(username)
+    return res.json(user)
+})
+
 userRoutes.post('/authenticate', async(req: Request, res: Response) =>{
     const {username, password} = req.body;
     const input = {username, password};

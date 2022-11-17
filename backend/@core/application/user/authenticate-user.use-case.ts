@@ -12,8 +12,9 @@ export class AuthenticateUserUseCase{
             const passwordMatch = await compare(input.password, user?.password);
             if(!passwordMatch) throw new Error('Password invalid!')
             const username = input.username;
-            const token = sign(username, process.env.md5Hash,{ 
-                subject: user.id,
+
+            const token = sign({username}, process.env.md5Hash,{ 
+                subject: user?.id,
                 expiresIn: "1d",
             }) 
             const userAuthenticated = {id: user.id, token: token}
