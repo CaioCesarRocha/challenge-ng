@@ -1,7 +1,29 @@
-import { TransactionInput } from "../../../domain/transaction/transaction.repository";
-import { TransactionRepositoryInterface } from "../../../domain/transaction/transaction.repository";
-import { Transaction } from "../../../domain/transaction/transaction.repository";
+import { TransactionInput, Transaction, TransactionRepositoryInterface } 
+    from "../../../domain/transaction/transaction.repository";
 import { prisma } from "../../Prisma/prismaClient";
+
+
+async function normalizeTransactions(transactions: Transaction[], id: string): Promise<Transaction[]>{
+    const transactionsWithUsername: Transaction[] = [];
+    await Promise.all(transactions.map( async(transaction) =>{
+        if(transaction.debitedAccountId !== id){
+            await prisma.user.findUnique({
+                where: {accountId: transaction.debitedAccountId}
+            }).then((data) =>{
+                transactionsWithUsername.push({...transaction, userTransfer: data.username})
+            })         
+        }
+        if(transaction.creditedAccountId !== id){          
+            await prisma.user.findUnique({ 
+                where: {accountId: transaction.creditedAccountId}
+            }).then((data) =>{
+                transactionsWithUsername.push({...transaction, userTransfer: data.username}) 
+            });                       
+        }     
+    }))
+    return transactionsWithUsername;  
+}
+
 
 export class TransactionPrismaRepository implements TransactionRepositoryInterface{
     constructor(){}
@@ -22,7 +44,8 @@ export class TransactionPrismaRepository implements TransactionRepositoryInterfa
                 data: { balance: transaction.creditedUserBalance}
             })
         ])
-        return newTransaction;
+        const transactionCreated = { ...newTransaction, userTransfer: transaction.usernameCredited}
+        return transactionCreated;
     }
 
     async findByIdUser(id: string): Promise<Transaction[]> {
@@ -34,21 +57,25 @@ export class TransactionPrismaRepository implements TransactionRepositoryInterfa
                 ],
             }
         })
-        return transactions;
+        const normalizedTransactions = await normalizeTransactions(transactions, id);
+        return normalizedTransactions;     
     }
 
-    async filter(id: string, filter: 'cashIn' | 'cashOut' | [Date, Date]): Promise<Transaction[]> {
+
+    async filter(id: string, filter: 'cashIn' | 'cashOut' | [Date, Date]): Promise<Transaction[]> {      
         if(filter === 'cashIn'){
             const transactions = await prisma.transaction.findMany({
                 where:{creditedAccountId: id} 
-            })           
-            return transactions;
+            }) 
+            const normalizedTransactions = await normalizeTransactions(transactions, id);          
+            return normalizedTransactions;
         }
         if(filter === 'cashOut'){
             const transactions = await prisma.transaction.findMany({
                 where:{debitedAccountId: id} 
             })           
-            return transactions;
+            const normalizedTransactions = await normalizeTransactions(transactions, id);       
+            return normalizedTransactions;
         }
         const dataSelected = filter[0]
         const dataLimit = filter[1]
@@ -63,6 +90,7 @@ export class TransactionPrismaRepository implements TransactionRepositoryInterfa
                 }
             }
         })
-        return transactions
+        const normalizedTransactions = await normalizeTransactions(transactions, id);          
+        return normalizedTransactions;
     }
 }

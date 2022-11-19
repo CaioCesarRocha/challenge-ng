@@ -6,13 +6,13 @@ export class FilterTransactionUseCase{
 
     async execute(input: FilterTransactionInput):Promise<FilterTransactionOutput>{
         if(input.filter !== 'cashIn' && input.filter !== 'cashOut'){
-            var arrDate = input.filter.split('/');
-            var dateStringFormat = arrDate[1] + '-' + arrDate[0] + '-' + arrDate[2];
-            const date1 = new Date(dateStringFormat);
-            const date2 = new Date(date1);
-            date2.setDate(date1.getDate()+1);
-            date2.toLocaleDateString();
-            const dates = [date1, date2]
+            const date = new Date(input.filter);
+            const dateStart = new Date(date);
+            dateStart.setDate(date.getDate()-1);
+            const dateEnd = new Date(date);
+            dateEnd.setDate(date.getDate()+1);
+            dateEnd.toLocaleDateString();
+            const dates = [dateStart, dateEnd];
             const transaction = await this.transactionRepo.filter(input.accountId, dates);
             return transaction;
         }
@@ -23,13 +23,14 @@ export class FilterTransactionUseCase{
 
 type FilterTransactionInput={
     accountId: string;
-    filter: string;
+    filter: string|Date;
 }
 
 type FilterTransactionOutput={
     id: string;
     debitedAccountId: string;
     creditedAccountId: string;
+    userTransfer?: string;
     value: number;
     createdAt: Date;
 }[];

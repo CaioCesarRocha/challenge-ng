@@ -19,23 +19,25 @@ transactionRoutes.post('/transaction',
     }
 );
 
-transactionRoutes.get('/transaction', 
+transactionRoutes.get('/transaction/:AccountId', 
     ensureAuthenticateUser, 
     async(req: Request, res: Response, next: NextFunction)=>{ 
-        const { accountId } = req.body;
+        const accountId  = req.params.AccountId;
         const createTransaction = new FindTransactionByUserIdUseCase(transactionRepo);
         const output = await createTransaction.execute(accountId);
         res.status(201).json(output) 
     }
 );
 
-transactionRoutes.get('/transaction/filter', 
+transactionRoutes.get('/transaction/filter/:id/:filter', 
     ensureAuthenticateUser, 
     async(req: Request, res: Response, next: NextFunction)=>{  
-        const { accountId, filter} = req.body;
-        const input = {accountId, filter}
+        const accountId = req.params.id;
+        const filter = req.params.filter;
+        const input = {accountId, filter};
         const filterTransaction = new FilterTransactionUseCase(transactionRepo)
         const output = await filterTransaction.execute(input);
+
         res.status(201).json(output) 
     }
 );

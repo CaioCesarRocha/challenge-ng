@@ -7,6 +7,7 @@ export interface IUser {
   username: string
   password: string
   token?: string
+  accountId?: string
 }
 
 export interface IError {
@@ -31,22 +32,25 @@ interface UserProviderProps {
 export const UsersContext = createContext({} as UserContextType)
 
 function updatingCookie(logged: boolean, user?: IUser) {
-  if (logged && user?.token && user?.id) {
-    document.cookie = 'myCookie' + JSON.stringify({ foo: 'bar', baz: 'poo' })
-    Cookies.set('challenge-ng-cod3r-auth', user.username, { expires: 1 })
-    Cookies.set('token', user?.token, { expires: 1 })
-    Cookies.set('id', user?.id, { expires: 1 })
+  console.log('updatingCookie', user)
+  if (logged && user?.token && user?.id && user?.accountId) {
+    console.log('passei no updatingCookieess')
+    Cookies.set('challenge-ng-cod3r-auth', user.username, { expires: 1 });
+    Cookies.set('token', user.token, { expires: 1 });
+    Cookies.set('id', user.id, { expires: 1 });
+    Cookies.set('accountId', user.accountId, { expires: 1 });
   } else {
-    Cookies.remove('challenge-ng-cod3r-auth') // se tiver deslogado, exclui os dados
+    Cookies.remove('challenge-ng-cod3r-auth') 
     Cookies.remove('token')
     Cookies.remove('id')
+    Cookies.remove('accountId')
   }
 }
 
 export function UserProvider({ children }: UserProviderProps) {
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<IError>({ msg: '', active: false })
-  const [user, setUser] = useState<IUser>({ username: '', password: '' })
+  const [user, setUser] = useState<IUser>({ username: '', password: '', accountId: '' })
 
   async function login(user: IUser) {
     setLoading(true)
@@ -57,11 +61,14 @@ export function UserProvider({ children }: UserProviderProps) {
         username, 
         password
       })
-      console.log('authenticateUser', authetenticateUser)
-      const token = authetenticateUser.data.token
-      const id = authetenticateUser.data.id
-      const userLogged = {id, username: user.username, password: '', token }
-      if (token) {
+      const userLogged = {
+        id: authetenticateUser.data.user.id,
+        username: user.username, 
+        password: '', 
+        token: authetenticateUser.data.token,
+        accountId: authetenticateUser.data.user.accountId
+      }
+      if (userLogged?.token) {
         setUser(userLogged)
         updatingCookie(true, userLogged)
       }
@@ -75,7 +82,6 @@ export function UserProvider({ children }: UserProviderProps) {
   async function registerUser(user: IUser) {
     setLoading(true)
     await new Promise((resolve) => setTimeout(resolve, 2000)) 
-    console.log('user', user)
     const { username, password } = user
     const userExist = await api.get(`/userByUsername/${username}`);
     if(userExist?.data?.username){
@@ -91,10 +97,14 @@ export function UserProvider({ children }: UserProviderProps) {
         username,
         password,
       })
-      const token = authetenticateUser.data.token;
-      const id = authetenticateUser.data.id;
-      const userLogged = {id, username: user.username, password: '', token};
-      if (token) {
+      const userLogged = {
+        id: authetenticateUser.data.user.id,
+        username: user.username, 
+        password: '', 
+        token: authetenticateUser.data.token,
+        accountId: authetenticateUser.data.user.accountId
+      }
+      if (userLogged?.token) {
         setUser(userLogged)
         updatingCookie(true, userLogged)
       }
@@ -106,13 +116,12 @@ export function UserProvider({ children }: UserProviderProps) {
   }
 
   async function setErrorForm(msg: string){
-    console.log('passei aqui')
     setError({msg: msg, active: true})
   }
 
   async function logout() {
     setLoading(true)
-    setUser({ username: '', password: '', token: '' })
+    setUser({id: '', username: '', password: '', token: '' , accountId: ''})
     updatingCookie(false)
     setLoading(false)
   }
@@ -120,15 +129,16 @@ export function UserProvider({ children }: UserProviderProps) {
   useEffect(() => {
     setLoading(true)
     const username = Cookies.get('challenge-ng-cod3r-auth')
-    if (username) {
+    if (username) { 
       setUser({
-        id: Cookies.get('id') || '',
+        id: Cookies.get('id'),
         username,
         password: '',
         token: Cookies.get('token'),
+        accountId: Cookies.get('accountId')
       })
-      setLoading(false)
-    } else setLoading(false)
+    } 
+    setLoading(false)
   }, [])
 
   return (

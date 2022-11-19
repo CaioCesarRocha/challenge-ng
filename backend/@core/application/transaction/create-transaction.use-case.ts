@@ -11,6 +11,7 @@ export class CreateTransactionUseCase{
             creditedAccountId: newBalances.creditedAccountId,
             debitedUserBalance: newBalances.newBalanceDebited,
             creditedUserBalance: newBalances.newBalanceCredited,
+            usernameCredited: input.usernameCredited,
             value: input.value
        }
        const transaction = await this.transactionRepo.insert(newTransaction)
@@ -28,6 +29,7 @@ export type CreateTransactionOutput={
     id: string;
     debitedAccountId: string;
     creditedAccountId: string;
+    userTransfer: string,
     value: number
     createdAt: Date;
 }

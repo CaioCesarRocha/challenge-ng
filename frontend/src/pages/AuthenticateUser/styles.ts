@@ -86,6 +86,8 @@ export const DeliveryContent = styled.div`
 export const ContainerInput = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
   width: 100%;
 `
 

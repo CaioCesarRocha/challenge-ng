@@ -6,12 +6,12 @@ import { ensureAuthenticateUser } from "../middlewares/ensureAuthenticateUser";
 const accountRoutes = Router();
 const accountRepo = new AccountPrismaRepository()
 
-accountRoutes.get('/account', 
+accountRoutes.get('/account/:id', 
     ensureAuthenticateUser, 
     async(req: Request, res: Response, next: NextFunction)=>{ 
-        const { accountId } = req.body;
+        const id = req.params.id;
         const findAccountById = new FindAccountByIdUseCase(accountRepo);
-        const output = await findAccountById.execute(accountId);
+        const output = await findAccountById.execute(id);
         res.status(201).json(output) 
     }
 );

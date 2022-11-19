@@ -5,7 +5,7 @@ import { UserRepositoryInterface } from "../../domain/user/user.repository";
 export class FindUserByUsernameUseCase{
     constructor(private userRepo: UserRepositoryInterface){}
 
-    async execute(username: string): Promise<FindByUsernameUseCaseOutput>{   
+    async execute(username: string): Promise<FindByUsernameUseCaseOutput|void>{   
        const user = await this.userRepo.findByUsername(username);
        return user;
     }

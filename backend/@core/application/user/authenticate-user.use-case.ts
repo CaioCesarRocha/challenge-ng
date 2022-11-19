@@ -17,10 +17,17 @@ export class AuthenticateUserUseCase{
                 subject: user?.id,
                 expiresIn: "1d",
             }) 
-            const userAuthenticated = {id: user.id, token: token}
+            const userAuthenticated = {user: user, token: token}
             return userAuthenticated; 
         }            
     }
+}
+
+type User={
+    id: string;
+    username: string;
+    password: string;
+    accountId: string;
 }
 
 type AuthenticateUserInput={
@@ -29,6 +36,6 @@ type AuthenticateUserInput={
 }
 
 type AuthenticateUserOutput={
-    id: string;
+    user: User;
     token: string;
 }
