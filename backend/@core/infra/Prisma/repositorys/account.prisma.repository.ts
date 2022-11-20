@@ -1,8 +1,6 @@
 import { AccountRepositoryInterface } from "@core/domain/account/account.repository";
 import { prisma } from "../prismaClient";
 import { AccountOutput } from "@core/domain/account/account.repository";
-import { Account } from "../../../domain/account/account.entity";
-
 
 export class AccountPrismaRepository implements AccountRepositoryInterface{ 
     constructor(){}

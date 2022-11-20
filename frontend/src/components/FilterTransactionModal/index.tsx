@@ -14,10 +14,9 @@ import { Overlay, Content, CloseButton, TransactionType, TransactionTypeButton, 
 import useTransaction from '../../hooks/useTransaction';
 import ptBR from 'date-fns/locale/pt-BR';
 
-
 const filterTransactionSchema = z.object({
     filter: z.string().optional(),
-  })
+})
   
 type FilterTransactionFormInputs = z.infer<typeof filterTransactionSchema>
 
@@ -35,7 +34,7 @@ export function FilterTransactionModal() {
     const {
         control,
         handleSubmit,
-        formState: { isSubmitting }, // informa estado do form, podendo ser usado pra desabilitar o botao
+        formState: { isSubmitting },
         reset,
     } = useForm<FilterTransactionFormInputs>({
         resolver: zodResolver(filterTransactionSchema),

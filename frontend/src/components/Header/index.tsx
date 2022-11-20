@@ -1,9 +1,4 @@
-import {
-  HeaderContainer,
-  HeaderContent,
-  LogoutButton,
-  SecundaryHeaderContent,
-} from './styles';
+import { HeaderContainer, HeaderContent, LogoutButton, SecundaryHeaderContent} from './styles';
 import logongcash from '../../assets/logongcash.svg';
 import {ArrowSquareRight} from 'phosphor-react';
 import useAuth from '../../hooks/useAuth';

@@ -12,7 +12,6 @@ export class AuthenticateUserUseCase{
             const passwordMatch = await compare(input.password, user?.password);
             if(!passwordMatch) throw new Error('Senha inválida!')
             const username = input.username;
-
             const token = sign({username}, process.env.md5Hash,{ 
                 subject: user?.id,
                 expiresIn: "1d",

@@ -1,4 +1,3 @@
-
 interface propsCardContent{
     status: string;
     icon: any;

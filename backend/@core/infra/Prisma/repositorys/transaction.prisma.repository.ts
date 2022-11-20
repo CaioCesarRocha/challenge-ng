@@ -61,7 +61,6 @@ export class TransactionPrismaRepository implements TransactionRepositoryInterfa
         return normalizedTransactions;     
     }
 
-
     async filter(id: string, filter: 'cashIn' | 'cashOut' | [Date, Date]): Promise<Transaction[]> {      
         if(filter === 'cashIn'){
             const transactions = await prisma.transaction.findMany({

@@ -5,16 +5,14 @@ export const SummaryContainer = styled.section`
   max-width: 1120px;
   margin: 0 auto;
   padding: 0 1.5rem;
-
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-top: -5rem;
 
   @media (max-width: 769px) {
     grid-template-columns: repeat(2, 1fr);
   }
-  gap: 2rem;
-
-  margin-top: -5rem;
 `
 interface SummaryCardProps {
   variant?: 'green' | 'red' | 'blue'

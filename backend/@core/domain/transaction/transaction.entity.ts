@@ -4,7 +4,6 @@ export type TransactionProps={
     debitedId: string,
     creditedId: string,
     value: number,
-
 }
 
 export class Transaction{

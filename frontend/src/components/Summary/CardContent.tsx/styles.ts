@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 export const CardContainer = styled.main`
     header {
         display: flex;

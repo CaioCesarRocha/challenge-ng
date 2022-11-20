@@ -5,7 +5,6 @@ export class FindTransactionByUserIdUseCase{
 
     async execute(id: string): Promise<TransactionOutput>{
         const transactions = await this.transactionRepo.findByIdUser(id);
-
         return transactions;
     }
 }

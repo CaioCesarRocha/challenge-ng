@@ -1,6 +1,5 @@
 import styled, { css }  from "styled-components";
 
-
 export const CardTransactionContainer = styled.main`
     display: flex;
     width: 100%;
@@ -30,7 +29,6 @@ export const CardContent = styled.div`
         }
     }
 `
-
 export const ColoredContent = styled.p<CardContentProps>`
     ${(props) => props.variant === 'green' && css` color: ${props.theme['green-700']};`}
     ${(props) => props.variant === 'red' && css` color: ${props.theme['red-500']};`}

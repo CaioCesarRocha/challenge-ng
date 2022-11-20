@@ -16,8 +16,6 @@ export const HeaderContent = styled.div`
   img {
     max-height: 75px;
   }
-
- 
 `
 
 export const SecundaryHeaderContent = styled.div`

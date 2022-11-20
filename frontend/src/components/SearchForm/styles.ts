@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 export const SearchFormContainer = styled.main`
     display: flex;
     flex-direction: row;
@@ -36,7 +35,6 @@ export const SearchFormContainer = styled.main`
     }
 
     &:not(:disabled):hover {
-      //somente qdo nao tiver disabilitado
       background: ${(props) => props.theme['green-500']};
       border-color: 1px solid ${(props) => props.theme['green-500']};
       color: ${(props) => props.theme.white};
@@ -56,7 +54,6 @@ export const SearchFormButtons = styled.button`
   font-weight: bold;
   cursor: pointer;
  
-
   &:disabled {
     opacity: 0.7;
     cursor: not-allowed;

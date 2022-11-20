@@ -114,7 +114,6 @@ export const ContentForm = styled.div`
 
 export const ContentLoading = styled.div`
   display: flex;
-
   font-size: 20px;
   text-align: center;
   justify-content: center;
@@ -135,10 +134,6 @@ export const TransactionType = styled(RadioGroup.Root)`
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   margin-top: 0.5rem;
-
-  @media (max-width: 481px) {
-    //grid-template-columns: repeat(2, 1fr);
-  }
 `
 
 export const TransactionTypeButton = styled(RadioGroup.Item)`

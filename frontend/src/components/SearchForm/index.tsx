@@ -4,7 +4,6 @@ import { SearchFormContainer, SearchFormButtons } from './styles';
 import { FilterTransactionModal } from '../FilterTransactionModal';
 import { NewTransactionModal } from '../NewTransactionModal';
 
-
 export function SearchForm() { 
   return (
     <SearchFormContainer>

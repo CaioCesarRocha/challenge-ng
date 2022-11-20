@@ -8,7 +8,7 @@ export function useSummary() {
   const  transactions  = useContextSelector(TransactionContext, (context) => {
     return context.transactions
   })
-  //utilizando useMemo para evitar q essa variável seja recriada na memoria sem ter mudado
+  
   const summary = useMemo(() =>{ 
     return transactions.reduce(
       (acc, transactions) => {

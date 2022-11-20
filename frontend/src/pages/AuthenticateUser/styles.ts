@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const DeliveryContainer = styled.main`
-    width: 100%;
-    max-width: 1120px;
-    margin: 4rem auto 0;
-    padding: 0 1.5rem;
+  width: 100%;
+  max-width: 1120px;
+  margin: 4rem auto 0;
+  padding: 0 1.5rem;
 `
 
 export const DeliveryContent = styled.div`
@@ -108,8 +108,6 @@ export const ContainerInput = styled.div`
     @media (max-width: 441px) {
       font-size: 22px;
     }
-  }
-
-  
+  } 
 `
 

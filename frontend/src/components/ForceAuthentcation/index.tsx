@@ -20,15 +20,12 @@ export function ForceAuthentication(props: any) {
       {renderContent ? (
         <>
           <script
-            // id="handleLogin"
-            // strategy="afterInteractive"
             dangerouslySetInnerHTML={{
-              // para rodar um html aqui
               __html: `
-                                if(!document.cookie?.includes("challenge-ng-cod3r-auth")){
-                                    window.location.href = "/authentication"
-                                }
-                            `,
+                if(!document.cookie?.includes("challenge-ng-cod3r-auth")){
+                  window.location.href = "/authentication"
+                }
+              `,
             }}
           />
           {props.children}

@@ -7,7 +7,6 @@ interface propsSuccesAlert {
 }
 
 const Alert = React.forwardRef((props: propsSuccesAlert, ref) => {
-
   return (
     <div >
       <ToastContainer

@@ -1,4 +1,3 @@
-
 export type TransactionInput={
     debitedAccountId: string;
     creditedAccountId: string;
@@ -16,7 +15,6 @@ export type Transaction={
     value: number
     createdAt: Date;
 }
-
 
 export interface TransactionRepositoryInterface{
     insert(transaction: TransactionInput): Promise<Transaction>;

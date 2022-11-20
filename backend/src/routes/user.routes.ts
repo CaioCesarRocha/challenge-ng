@@ -12,7 +12,9 @@ userRoutes.post('/user',
         const {username, password} = req.body;  
         const findUserByUsername = new FindUserByUsernameUseCase(userRepo)
         const userExist = await findUserByUsername.execute(username)
-        if(userExist?.username === username) next(new Error('User already exist'));
+        if(userExist) { 
+            if(userExist?.username === username) next(new Error('User already exist')); 
+        }
         else{
             const input = {username, password};
             const createUseCase = new CreateUserUseCase(userRepo);

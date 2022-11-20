@@ -37,10 +37,8 @@ transactionRoutes.get('/transaction/filter/:id/:filter',
         const input = {accountId, filter};
         const filterTransaction = new FilterTransactionUseCase(transactionRepo)
         const output = await filterTransaction.execute(input);
-
         res.status(201).json(output) 
     }
 );
-
 
 export { transactionRoutes };
