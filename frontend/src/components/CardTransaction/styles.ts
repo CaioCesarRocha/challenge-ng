@@ -22,7 +22,13 @@ export const CardContent = styled.div`
     padding: 0.8rem;
     border-radius: 6px;
     align-items: center;   
-    background-color: ${(props) => props.theme['gray-900']};  
+    background-color: ${(props) => props.theme['gray-900']}; 
+    
+    p{
+        @media (max-width: 441px) {
+            font-size: 13px;
+        }
+    }
 `
 
 export const ColoredContent = styled.p<CardContentProps>`

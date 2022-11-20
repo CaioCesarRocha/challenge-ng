@@ -43,6 +43,10 @@ export const DeliveryContent = styled.div`
     &::placeholder {
       color: ${(props) => props.theme['gray-500']};
     }
+
+    @media (max-width: 441px) {
+      height: 45px;
+    }
   }
   
   p {
@@ -58,6 +62,10 @@ export const DeliveryContent = styled.div`
         color: ${(props) => props.theme['green-500']};
       }
     }
+
+    @media (max-width: 441px) {
+      font-size: 10px;
+    }
   }
 
   button[type='submit'] {
@@ -66,7 +74,6 @@ export const DeliveryContent = styled.div`
     background: ${(props) => props.theme['green-500']};
     color: ${(props) => props.theme.white};
     font-weight: bold;
-    padding: 0 1.25rem;
     border-radius: 6px;
     margin-top: 1rem;
     cursor: pointer;
@@ -80,6 +87,11 @@ export const DeliveryContent = styled.div`
       background: ${(props) => props.theme['green-700']};
       transition: background-color 0.2s;
     }
+
+    @media (max-width: 441px) {
+      height: 40px;
+      margin-top: 0.4rem;
+    }
   }
 `
 
@@ -89,5 +101,15 @@ export const ContainerInput = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+
+  i{
+    font-size: 25px;
+
+    @media (max-width: 441px) {
+      font-size: 22px;
+    }
+  }
+
+  
 `
 

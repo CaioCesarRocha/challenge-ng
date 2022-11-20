@@ -24,7 +24,7 @@ export function useSummary() {
       },
       { inputs: 0, outputs: 0, balance: 0 },
     )
-  }, [transactions])
+  }, [transactions, user.accountId])
 
   return summary
 }

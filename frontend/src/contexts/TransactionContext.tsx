@@ -71,26 +71,26 @@ export function TransactionProvider({ children }: TransactionProviderProps) {
             if(userExist.data?.accountId === debitedAccountId){
                 setError({ msg: 'Impossível transferir para você mesmo.', active: true })
                 return false;
-            }
-            try {
-                const createdTransaction = await api.post('/transaction',
-                    {  
-                        debitedAccountId,
-                        usernameCredited,
-                        value
-                    },
-                    config,
-                )
-                setTransactions((state) => [createdTransaction.data, ...state]);
+            }          
+            const createdTransaction = await api.post('/transaction',
+                {  
+                    debitedAccountId,
+                    usernameCredited,
+                    value
+                },
+                config,
+            ).then((response) =>{
+                setTransactions((state) => [response.data, ...state]);
                 const newBalance = balance - value;
                 setBalance(newBalance);
-                return true
-            } catch (err) {
-                if (err instanceof Error) setError({ msg: err.message, active: true })
+                return true;
+            }).catch((err) =>{
+                setError({ msg: err.response.data.message, active: true })
                 return false
-            }
-        }, 
-        [],
+            })
+            if(!createdTransaction)  return false;
+            return true; 
+        },[],
     )
 
     async function clearTransactions() {
@@ -99,7 +99,6 @@ export function TransactionProvider({ children }: TransactionProviderProps) {
     }
 
     useEffect(() => {
-        console.log('passei o effect, transacions')
         async function getDefaultTransactions(): Promise<void> {
             const config = setBearerToken();
             if (!user.accountId) return;
@@ -107,7 +106,7 @@ export function TransactionProvider({ children }: TransactionProviderProps) {
                 const transactions = await api.get(`/transaction/${user.accountId}`, config);
                 setTransactions(transactions.data);
                 const balance = await api.get(`/account/${user.accountId}`, config);
-                setBalance(balance.data.balance)
+                setBalance(balance?.data?.balance)
             } catch (err) {
                 if (err instanceof Error) setError({ msg: err.message, active: true })
             }

@@ -7,10 +7,10 @@ export class AuthenticateUserUseCase{
     
     async execute(input: AuthenticateUserInput): Promise<AuthenticateUserOutput>{
         const user = await this.userRepo.findByUsername(input.username);
-        if(!user) throw new Error('Client not exist!');
+        if(!user) throw new Error('Usuário não existe!');
         else{          
             const passwordMatch = await compare(input.password, user?.password);
-            if(!passwordMatch) throw new Error('Password invalid!')
+            if(!passwordMatch) throw new Error('Senha inválida!')
             const username = input.username;
 
             const token = sign({username}, process.env.md5Hash,{ 

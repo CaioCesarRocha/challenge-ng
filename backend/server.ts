@@ -6,7 +6,7 @@ import { accountRoutes } from "./src/routes/account.routes";
 import { userRoutes } from "./src/routes/user.routes";
 import { transactionRoutes } from "./src/routes/transcation.routes";
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 5000
 
 const app = express();
 

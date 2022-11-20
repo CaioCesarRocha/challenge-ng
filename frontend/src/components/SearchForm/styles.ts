@@ -11,6 +11,12 @@ export const SearchFormContainer = styled.main`
     padding: 0 1.5rem;
     margin-top: 20px;
 
+    @media (max-width: 441px) {
+      display: flex;
+      margin: 0 auto;
+      margin-top: 20px;
+    }
+
     button {
     display: flex;
     align-items: center;
@@ -46,11 +52,10 @@ export const SearchFormButtons = styled.button`
   border: 0;
   padding: 1rem;
   background: transparent;
-  //border: 1px solid ${(props) => props.theme['green-300']};
   color: ${(props) => props.theme['red-300']};
   font-weight: bold;
-  //border-radius: 6px;
   cursor: pointer;
+ 
 
   &:disabled {
     opacity: 0.7;
@@ -62,5 +67,9 @@ export const SearchFormButtons = styled.button`
     border-color: 1px solid ${(props) => props.theme['green-500']};
     color: ${(props) => props.theme.white};
     transition: background-color 0.2s, color 0, 2s;
+  }
+
+  @media (max-width: 441px) {
+    font-size: 14px;
   }
 `

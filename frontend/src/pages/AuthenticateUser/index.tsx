@@ -3,10 +3,12 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from "react-router-dom";
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'react-toastify';
 import { User, LockKey } from 'phosphor-react';
 import { ContainerInput, DeliveryContainer, DeliveryContent } from "./styles";
 import { VerifyInputForm } from "../../services/utils/verifyInputForm";
 import useAuth from "../../hooks/useAuth";
+import Alert from '../../components/Alert/index';
 
 const newFormUserSchema = z.object({
     username: z.string(),
@@ -34,7 +36,7 @@ export function AuthenticateUser() {
     }, [user, navigate])
 
     useEffect(() => {
-        if(error?.active) alert(error.msg);
+        if(error?.active) toast.error(error.msg)
     }, [error])
 
     async function handleLogin(data: NewUserFormInputs) {
@@ -55,11 +57,12 @@ export function AuthenticateUser() {
 
     return (
         <DeliveryContainer>
+            <Alert theme="colored" />
             <DeliveryContent>
                 <h1> {screen === 'Login' ? 'Login' : 'Cadastrar Usuário'}</h1>
                 <form onSubmit={handleSubmit(handleLogin)}>
                     <ContainerInput >
-                        <i><User size={25}/></i>
+                        <i><User/></i>
                         <input
                             type="text"
                             placeholder="Nome do usuário"
@@ -68,7 +71,7 @@ export function AuthenticateUser() {
                         />          
                     </ContainerInput>
                     <ContainerInput >
-                        <i><LockKey size={25}/></i>
+                        <i><LockKey/></i>
                         <input
                             type="password"
                             placeholder="Senha"
@@ -79,7 +82,7 @@ export function AuthenticateUser() {
                     { screen === 'Register' ? 
                         <>
                             <ContainerInput >
-                                <i><LockKey size={25}/></i>
+                                <i><LockKey/></i>
                                 <input
                                     type="password"
                                     placeholder="Confirme a senha"

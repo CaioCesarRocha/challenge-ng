@@ -3,10 +3,12 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import * as Dialog from '@radix-ui/react-dialog'
 import { useForm, Controller } from 'react-hook-form'
-import * as z from 'zod'
+import * as z from 'zod';
+import { toast } from 'react-toastify'
 import { zodResolver } from '@hookform/resolvers/zod';
 import { X, CheckCircle, ArrowCircleUp, ArrowCircleDown,} from 'phosphor-react';
 import { RotatingLines } from 'react-loader-spinner';
+import Alert from '../Alert';
 import { Overlay, Content, CloseButton, TransactionType, TransactionTypeButton, ContentForm, 
     ContentLoading, DialogTitle, DialogDescription, Input} from './styles';
 import useTransaction from '../../hooks/useTransaction';
@@ -40,15 +42,14 @@ export function FilterTransactionModal() {
     })
 
     async function handleSearchByFilter(data: FilterTransactionFormInputs) {
-        setFinished(false)
-        setRenderCreating(true)
-        var filter: string | Date = startDate;
-        if(data.filter) filter = data.filter;
+        setFinished(false);
+        setRenderCreating(true);
+        var filter: string | Date = startDate;     
+        if(data.filter === 'cashIn' || data.filter === 'cashOut') filter = data.filter;   
         const filteredTransactions = await filterTransactions(filter)
-        if (filteredTransactions) {
-          setFinished(true)
-        }else{
-            alert(error.msg)
+        if (filteredTransactions) setFinished(true);
+        else{
+            toast.error(error.msg)
             setFinished(false);
             setRenderCreating(false);
         }
@@ -57,6 +58,7 @@ export function FilterTransactionModal() {
 
     return(
         <Dialog.Portal>
+            <Alert theme="colored" />
             <Overlay />
             <Content>
                 <CloseButton>
@@ -88,13 +90,13 @@ export function FilterTransactionModal() {
                                     onValueChange={field.onChange}
                                     value={field.value}
                                     >        
-                                      <DatePicker 
+                                    <DatePicker 
                                         selected={startDate} 
                                         onChange={(date:Date) => setStartDate(date)}
                                         locale={ptBR}
                                         dateFormat="dd/MM/yyyy"
                                         customInput={<Input/>}
-                                    />                                                                        
+                                    />
                                 </TransactionType>
                             </>
                         )}}

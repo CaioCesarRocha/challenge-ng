@@ -1,4 +1,4 @@
-import styled, { css} from 'styled-components'
+import styled from 'styled-components'
 import * as Dialog from '@radix-ui/react-dialog'
 
 export const Overlay = styled(Dialog.Overlay)`
@@ -109,7 +109,6 @@ export const ContentForm = styled.div`
 
 export const ContentLoading = styled.div`
   display: flex;
-
   font-size: 20px;
   text-align: center;
   justify-content: center;

@@ -2,10 +2,12 @@ import { useEffect, useState} from 'react';
 import { useContextSelector } from 'use-context-selector';
 import * as Dialog from '@radix-ui/react-dialog'
 import { useForm } from 'react-hook-form'
-import * as z from 'zod'
+import * as z from 'zod';
+import { toast } from 'react-toastify'
 import { zodResolver } from '@hookform/resolvers/zod';
 import { X, CheckCircle} from 'phosphor-react';
 import { RotatingLines } from 'react-loader-spinner';
+import Alert from '../Alert';
 import { Overlay, Content, CloseButton, ContainerInput, ContentForm, ContentLoading} from './styles';
 import { TransactionContext } from '../../contexts/TransactionContext';
 import useAuth from '../../hooks/useAuth';
@@ -27,7 +29,7 @@ export function NewTransactionModal() {
         return context.createTransaction
     })
     useEffect(() =>{
-        if(error.msg ) alert(error.msg);
+        if(error.msg ) toast.error(error.msg)
     }, [error.msg])
 
     const {
@@ -40,25 +42,26 @@ export function NewTransactionModal() {
     })
 
     async function handleSendTransaction(data: NewTransactionFormInputs) {
-        setRenderCreating(true)
+        setRenderCreating(true);
         const dataTransaction={
             debitedAccountId: user.accountId || '',
             usernameCredited: data.usernameCredited,
-            value: parseInt(data.value),
+            value: parseFloat(data.value.replace(',','.')),
             token: user.token || ''
         }
         const createdTransaction = await createTransaction(dataTransaction, balance)
         if (createdTransaction) {
-          setFinished(true)
-        }else{         
-            setFinished(false);
-            setRenderCreating(false);
-        }
-        reset();
+          setFinished(true);
+          reset();
+          return;
+        }        
+        setFinished(false);
+        setRenderCreating(false);      
     }
 
     return(
         <Dialog.Portal>
+            <Alert theme="colored" />
             <Overlay />
             <Content>
                 <CloseButton>
@@ -79,7 +82,7 @@ export function NewTransactionModal() {
                         <ContainerInput>
                             <p>Valor:</p>
                             <input 
-                                type="number"
+                                type="float"
                                 placeholder="Valor da Transferência"
                                 required
                                 {...register('value')}

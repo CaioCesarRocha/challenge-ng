@@ -11,17 +11,17 @@ export async function checkingTransactions(input: CreateTransaction){
     const findAccountsById = new FindAccountByIdUseCase(accountRepo);
 
     const creditedUser = await findUserByUsername.execute(input.usernameCredited);
-    if(!creditedUser) throw new Error("User informed not exist"); 
+    if(!creditedUser) throw new Error("Usuário informado não existe"); 
 
     const debitedAccount = await findAccountsById.execute(input.debitedAccountId);
     const creditedAccount = await findAccountsById.execute(creditedUser.accountId);
-    if(!debitedAccount || !creditedAccount) throw new Error("Account informed not exist");
+    if(!debitedAccount || !creditedAccount) throw new Error("A conta informada não existe");
 
     if(debitedAccount.balance < input.value){
-        throw new Error("User dosen't have balance enough"); 
+        throw new Error("Usuário não possui saldo suficiente para a transferência"); 
     }
     if(input.debitedAccountId === creditedUser.accountId){
-        throw new Error("User can't debit to himself"); 
+        throw new Error("Usuário não pode transferir para si mesmo."); 
     }
 
     const creditedAccountId = creditedUser.accountId;

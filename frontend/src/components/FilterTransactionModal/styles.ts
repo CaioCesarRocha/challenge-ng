@@ -192,4 +192,12 @@ export const Input = styled.input`
   &::placeholder {
     color: ${(props) => props.theme['gray-500']};
   }
+
+  &[data-state='checked'] {
+    color: ${(props) => props.theme.white};
+    background-color: ${(props) => props.theme['green-300']};
+    svg {
+      color: ${(props) => props.theme.white};
+    }
+  }
 `

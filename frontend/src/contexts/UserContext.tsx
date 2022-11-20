@@ -32,9 +32,7 @@ interface UserProviderProps {
 export const UsersContext = createContext({} as UserContextType)
 
 function updatingCookie(logged: boolean, user?: IUser) {
-  console.log('updatingCookie', user)
   if (logged && user?.token && user?.id && user?.accountId) {
-    console.log('passei no updatingCookieess')
     Cookies.set('challenge-ng-cod3r-auth', user.username, { expires: 1 });
     Cookies.set('token', user.token, { expires: 1 });
     Cookies.set('id', user.id, { expires: 1 });
