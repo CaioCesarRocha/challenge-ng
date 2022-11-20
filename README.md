@@ -75,9 +75,11 @@
 
 - Via docker - Basta rodar o comando docker-compose up  na pasta raiz do projeto
 
-- Caso não tenha docker, é necessário entrar nas pasta API e rodar o comando npm install
+- Caso não tenha docker, é necessário entrar nas pasta Backend e  Frontend e rodar o comando npm install
 
-- Rodar a aplicação utilizando o Express -> npm run express
+    - Rodar a backend  -> npm run express
+
+    - Rodar o frontend -> npm run start
 
 
 
