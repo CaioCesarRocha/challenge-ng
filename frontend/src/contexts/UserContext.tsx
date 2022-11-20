@@ -114,6 +114,7 @@ export function UserProvider({ children }: UserProviderProps) {
   }
 
   async function setErrorForm(msg: string){
+    if(msg === 'false') {setError({msg: '', active: false}); return;}
     setError({msg: msg, active: true})
   }
 

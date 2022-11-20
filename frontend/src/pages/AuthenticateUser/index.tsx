@@ -36,8 +36,11 @@ export function AuthenticateUser() {
     }, [user, navigate])
 
     useEffect(() => {
-        if(error?.active) toast.error(error.msg)
-    }, [error])
+        if(error?.active){
+            console.log('PASSEI NO USEEFFECT DO ERRO', error)
+            toast.error(error.msg)
+        } 
+    }, [error.msg])
 
     async function handleLogin(data: NewUserFormInputs) {
         if (screen === 'Login') { 
@@ -47,6 +50,7 @@ export function AuthenticateUser() {
         const verifyInputForm = await VerifyInputForm(data);
         if(verifyInputForm) {
             await setErrorForm(verifyInputForm)
+            await setErrorForm('false')
             return;
         }
         if(screen === 'Register') {
