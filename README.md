@@ -24,12 +24,12 @@
   
 </div><br>
 
-### Descrição Frontend
+### Descrição FRONTEND
 - Foi desenvolvido uma plataforma web para que os usuários possam logar, fazer transferências e visualizar as transferências realizadas.
 
-- Permite usuário cliente cadastrar as suas entregas e monitorar seu status, bem como o entregador selecionar as entregas disponíveis;
+- Utilização do UseContext para lidar com o estados das transferências bem como do Usuário logado.
 
-- Utilização do UseContext para lidar com o estados das entregas bem como o Usuário logado.
+### Tenolocias utilizadas 
 
 <div style="display: inline_block">
   <img align="center" alt="Caio-Js" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-plain.svg">
