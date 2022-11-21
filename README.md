@@ -9,7 +9,7 @@
 - Foi utilizado os conceitos do Clean Architecture separando ao máximo as regras de negócio da aplicação dentro do @Core 
 
 
-- Autenticação dos Usuários utilizando JWT
+- Autenticação dos Usuários utilizando JWT, testes unitários utilizando o Jest
 
 
 ### Tenolocias utilizadas 
@@ -20,6 +20,7 @@
   <img align="center" alt="Caio-node" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"">
   <img align="center" alt="Caio-express" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original-wordmark.svg" />
   <img align="center" alt="Caio-postgres" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-plain-wordmark.svg" />
+  <img align="center" alt="Caio-jest" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg" />
   <img align="center" alt="Caio-docker" height="30" width="40" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-plain-wordmark.svg" />
   
 </div><br>
