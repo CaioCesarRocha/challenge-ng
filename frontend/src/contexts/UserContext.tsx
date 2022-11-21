@@ -71,7 +71,7 @@ export function UserProvider({ children }: UserProviderProps) {
         updatingCookie(true, userLogged)
       }
     } catch (err) {
-      if (err instanceof Error) setError({ msg: 'Usuário ou senha Incorretos!', active: true })
+      if (err instanceof Error) await setErrorForm('Usuário ou senha Incorretos!');   
     } finally {
       setLoading(false)
     }

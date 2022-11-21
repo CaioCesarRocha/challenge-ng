@@ -37,7 +37,6 @@ export function AuthenticateUser() {
 
     useEffect(() => {
         if(error?.active){
-            console.log('PASSEI NO USEEFFECT DO ERRO', error)
             toast.error(error.msg)
         } 
     }, [error.msg])

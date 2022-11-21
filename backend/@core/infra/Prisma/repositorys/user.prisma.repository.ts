@@ -1,8 +1,7 @@
 import { User } from "../../../domain/user/user.entity";
 import { Account } from "../../../domain/account/account.entity";
-import {  UserRepositoryInterface } from "../../../domain/user/user.repository";
+import {  UserRepositoryInterface, UserOutput } from "../../../domain/user/user.repository";
 import { prisma } from "../prismaClient";
-import { UserOutput } from "../../../domain/user/user.repository";
 
 
 export class UserPrismaRepository implements UserRepositoryInterface{ 
