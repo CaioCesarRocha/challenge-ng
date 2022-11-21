@@ -32,9 +32,9 @@ describe('Testing Transaction-In-Memory Repository', () =>{
             value: 50,
         }    
         await repository.insert(transaction)
-        const transactionsFinded = await repository.findByIdUser("4")
-        expect(transactionsFinded).toHaveLength(1)
-        expect(transactionsFinded[0].value).toStrictEqual(50)
+        const transactionsFound = await repository.findByIdUser("4")
+        expect(transactionsFound).toHaveLength(1)
+        expect(transactionsFound[0].value).toStrictEqual(50)
     })
 
     it('Should Filter User transfers by cashIn or cashOut', async() =>{
@@ -49,10 +49,10 @@ describe('Testing Transaction-In-Memory Repository', () =>{
             value: 50,
         }    
         await repository.insert(transaction)
-        const transactionsFinded = await repository.filter( "5","cashIn")
-        expect(transactionsFinded).toHaveLength(1)
-        expect(transactionsFinded[0].value).toStrictEqual(50)
-        const transactionsFinded2 = await repository.filter( "4","cashIn")
-        expect(transactionsFinded2).toHaveLength(0)
+        const transactionsFound = await repository.filter( "5","cashIn")
+        expect(transactionsFound).toHaveLength(1)
+        expect(transactionsFound[0].value).toStrictEqual(50)
+        const transactionsFound2 = await repository.filter( "4","cashIn")
+        expect(transactionsFound2).toHaveLength(0)
     })
 })

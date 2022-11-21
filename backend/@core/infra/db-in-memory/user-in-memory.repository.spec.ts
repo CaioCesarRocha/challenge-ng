@@ -29,9 +29,9 @@ describe('Testing User-In-Memory Repository', () =>{
         const user = User.create(userProps);
         const account = Account.create()        
         await repository.insert(user, account)
-        const userFinded = await repository.findByUsername('Silver')
-        expect(userFinded.id).toStrictEqual(user.id)
-        expect(userFinded.password).toStrictEqual('12345')
-        expect(userFinded.accountId).toStrictEqual(account.id)
+        const userFound = await repository.findByUsername('Silver')
+        expect(userFound.id).toStrictEqual(user.id)
+        expect(userFound.password).toStrictEqual('12345')
+        expect(userFound.accountId).toStrictEqual(account.id)
     })
 })

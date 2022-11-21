@@ -8,7 +8,7 @@ describe('Testing Account-In-Memory Repository', () =>{
 
         const account = Account.create()        
         await repository.insert(account)
-        const accountFinded = await repository.findAccountById(account.id)
-        expect(accountFinded.balance).toStrictEqual(100)
+        const accountFound = await repository.findAccountById(account.id)
+        expect(accountFound.balance).toStrictEqual(100)
     })
 })

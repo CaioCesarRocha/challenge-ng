@@ -4,8 +4,8 @@ import { checkingTransactions } from "../../domain/transaction/checkingTransacti
 export class CreateTransactionUseCase{
     constructor(private transactionRepo: TransactionRepositoryInterface){}
     
-    async execute(input: CreateTransaction){
-       const newBalances = await checkingTransactions(input);
+    async execute(input: CreateTransaction, testes?: boolean){
+       const newBalances = await checkingTransactions(input, testes);
        const newTransaction = {
             debitedAccountId: input.debitedAccountId,
             creditedAccountId: newBalances.creditedAccountId,

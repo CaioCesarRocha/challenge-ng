@@ -1,6 +1,8 @@
 import { UserRepositoryInterface } from "../../domain/user/user.repository";
 import { sign } from "jsonwebtoken";
 import { compare } from "bcrypt";
+import * as dotenv from 'dotenv';
+dotenv.config()
 
 export class AuthenticateUserUseCase{
     constructor(private userRepo: UserRepositoryInterface){}
@@ -22,16 +24,16 @@ export class AuthenticateUserUseCase{
     }
 }
 
+type AuthenticateUserInput={
+    username: string
+    password: string;
+}
+
 type User={
     id: string;
     username: string;
     password: string;
     accountId: string;
-}
-
-type AuthenticateUserInput={
-    username: string
-    password: string;
 }
 
 type AuthenticateUserOutput={
